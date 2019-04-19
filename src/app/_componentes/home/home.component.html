@@ -1,0 +1,75 @@
+<div class="body">
+  <div fxLayout="row" fxLayoutAlign="center center" style="height: 100%">
+    <div fxFlex fxLayoutAlign="center center">
+      <mat-card class="content-card">
+        <div fxLayout="row">
+          <div fxFlex fxLayoutAlign="center center">
+            <h1>MarketPlace</h1>
+          </div>
+        </div>
+        <mat-card-header [fxHide.lt-md]="true">
+          <mat-card-title>ELIGE TU MEJOR OPCION</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <br>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="30px">
+            <div fxFlex="50" fxLayoutAlign="center center">
+              <mat-chip-list style="width: 100%;">
+                <mat-chip color="accent" selected>
+                  <mat-icon>store_mall_directory</mat-icon>Mi empresa
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+            <div fxFlex="50" fxLayoutAlign="center center">
+              <mat-chip-list style="width: 100%;">
+                <mat-chip color="accent" selected>
+                  <mat-icon>account_circle</mat-icon>Inicia como cliente
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
+          <br><br>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="30px">
+            <div fxFlex="50">
+              <mat-chip-list style="width: 100%;">
+                <mat-chip color="accent" selected routerLink="/registro/empresa">
+                  <mat-icon>person_pin_circle</mat-icon> Registra tu empresa
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+            <div fxFlex="50">
+              <mat-chip-list style="width: 100%;">
+                <mat-chip color="accent" selected routerLink="/registro/cliente">
+                  <mat-icon>sentiment_very_satisfied
+                  </mat-icon>Registrate como cliente
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions [ngStyle.lt-md]="{'padding.px' : 0}">
+          <div fxLayout="row">
+            <div fxFlex fxLayoutAlign="center center">
+              <h3>BUSCA TU PELUQUERIA FAVORITA </h3>
+            </div>
+          </div>
+          <div fxLayout="column">
+            <div fxFlex fxLayoutAlign="center center">
+              <mat-form-field>
+                <mat-label>Buscar...</mat-label>
+                <input matInput placeholder="Manga">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+            <div fxFlex fxLayoutAlign="center center">
+              <button mat-raised-button color="accent">Buscar</button>
+            </div>
+          </div>
+        </mat-card-actions>
+        <div [fxHide.lt-md]="true">
+          <br>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

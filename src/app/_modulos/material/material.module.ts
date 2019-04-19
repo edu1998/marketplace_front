@@ -38,6 +38,8 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   exports: [
@@ -80,7 +82,8 @@ import {
   ],
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ]
 })
 export class MaterialModule { }

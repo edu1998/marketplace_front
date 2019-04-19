@@ -1,0 +1,16 @@
+.left-icon {
+    text-align: end !important;
+}
+
+.body {
+    background-image: url("http://lauraperrino.com/public/slider/slider2lauraperrino.F0X.jpg");
+}
+
+mat-chip-list mat-chip {
+    width: 100% !important;
+    color: #212529 !important;
+    background-color: #ff4081c9 !important;
+    cursor: pointer;
+    height: 50px !important;
+    font-size: 20px
+}
