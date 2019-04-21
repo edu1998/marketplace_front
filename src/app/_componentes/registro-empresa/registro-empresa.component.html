@@ -13,8 +13,10 @@
             <mat-card-content>
                <br>
                <form [formGroup]="infoEmpresaFormGroup">
-                  <mat-horizontal-stepper labelPosition="bottom" [linear]="false" #stepper>
-                     <mat-step FormControlLike="infoGeneral">
+                  <mat-horizontal-stepper labelPosition="bottom" linear="true" #stepper>
+
+                     <!-- seccion registro informacion general -->
+                     <mat-step [stepControl]="infoEmpresaFormGroup.get('infoGeneral')">
                         <form formGroupName="infoGeneral">
                            <ng-template matStepLabel>Informafion General</ng-template>
                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="30px">
@@ -94,24 +96,23 @@
                               </div>
                            </form>
                            <div>
-                              <button mat-raised-button matStepperNext (click)="expression()" color="accent">Siguiente
-                              </button>
+                              <button mat-raised-button matStepperNext color="accent">Siguiente</button>
                            </div>
 
                         </form>
                      </mat-step>
 
+                     <!-- seccion registro de categorias -->
                      <mat-step FormControlLike="registroCategorias">
                         <form formArrayName="registroCategorias">
                            <ng-template matStepLabel>Agregar categorias</ng-template>
                            <form [formGroup]="listCategoriasFormGrop"
-                              (ngSubmit)="addArrayFormCotrol(infoEmpresaFormGroup,listCategoriasFormGrop,'registroCategorias')"
-                              #formDirective="ngForm">
+                              (ngSubmit)="_sharedFunction.addArrayFormCotrol(infoEmpresaFormGroup,listCategoriasFormGrop,'registroCategorias')">
                               <div fxLayout="row wrap" fxLayoutGap="30px">
                                  <div fxFlex>
                                     <mat-form-field appearance="outline">
                                        <mat-label>Codigo</mat-label>
-                                       <input matInput placeholder="codigo" formControlName="codigo">
+                                       <input matInput type="number" placeholder="codigo" formControlName="codigo">
                                     </mat-form-field>
                                  </div>
                                  <div fxFlex>
@@ -134,7 +135,9 @@
                               </div>
                               <div fxLayout="row">
                                  <div fxFlex fxLayoutAlign="center center">
-                                    <button mat-raised-button type="submit">Añadir
+                                    <button mat-raised-button type="submit" [disabled]="! listCategoriasFormGrop.get('codigo').value 
+                                       || ! listCategoriasFormGrop.get('nombre').value
+                                       || ! listCategoriasFormGrop.get('descripcion').value">Añadir
                                        categoria</button>
                                  </div>
                               </div>
@@ -142,7 +145,7 @@
                            <br>
                            <div fxLayout="row">
                               <div fxFlex="100" fxLayoutAlign="center center">
-                                 <table mat-table style="width: 50%; height: 100px"
+                                 <table mat-table style="width: 50%"
                                     [dataSource]="infoEmpresaFormGroup.get('registroCategorias').value"
                                     class="mat-elevation-z8">
 
@@ -160,14 +163,14 @@
                                        <th mat-header-cell *matHeaderCellDef> Acciones </th>
                                        <td mat-cell *matCellDef="let e; let i = index ">
                                           <mat-icon
-                                             (click)="deletArrayFormContro(infoEmpresaFormGroup,'registroCategorias',i)"
+                                             (click)="_sharedFunction.deletArrayFormContro(infoEmpresaFormGroup,'registroCategorias',i)"
                                              class="pointer" matTooltip="Eliminar">delete_forever
                                           </mat-icon>
                                        </td>
                                     </ng-container>
 
-                                    <tr mat-header-row *matHeaderRowDef="CategoriesColumns"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: CategoriesColumns;"></tr>
+                                    <tr mat-header-row *matHeaderRowDef="categoriesColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: categoriesColumns;"></tr>
                                  </table>
                               </div>
                            </div>
@@ -175,20 +178,282 @@
                            <div>
                               <button mat-raised-button color="accent" matStepperPrevious>Atras</button>
                               &nbsp;&nbsp;
-                              <button mat-raised-button color="accent" matStepperNext
-                                 (click)="expression()">Siguiente</button>
+                              <button mat-raised-button color="accent" matStepperNext>Siguiente</button>
                            </div>
                         </form>
                      </mat-step>
 
-                     <mat-step>
-                        <ng-template matStepLabel>Done</ng-template>
-                        You are now done.
-                        <div>
-                           <button mat-button matStepperPrevious>Atras</button>
-                           &nbsp;&nbsp;
-                           <button mat-button (click)="stepper.reset()">Reset</button>
-                        </div>
+                     <!-- seccion de registro de servicios -->
+                     <mat-step FormControlLike="registroServicios">
+                        <form formArrayName="registroServicios">
+                           <ng-template matStepLabel>Agregar servicios</ng-template>
+                           <form [formGroup]="listServicesFormGrop"
+                              (ngSubmit)="_sharedFunction.addArrayFormCotrol(infoEmpresaFormGroup,listServicesFormGrop,'registroServicios')">
+                              <div fxLayout="row wrap" fxLayoutGap="30px">
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Categoria</mat-label>
+                                       <mat-select formControlName="cod_categoria" class="capitalize">
+                                          <mat-option class="capitalize"
+                                             *ngFor="let itemCat of infoEmpresaFormGroup.get('registroCategorias').value"
+                                             [value]="itemCat.codigo">
+                                             {{itemCat.nombre}}
+                                          </mat-option>
+                                       </mat-select>
+                                    </mat-form-field>
+                                 </div>
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Codigo</mat-label>
+                                       <input matInput type="number" formControlName="codigo" placeholder="123">
+                                    </mat-form-field>
+                                 </div>
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Nombre</mat-label>
+                                       <input matInput type="text" formControlName="nombre" placeholder="Tinturado">
+                                    </mat-form-field>
+                                 </div>
+                              </div>
+                              <div fxLayout="row wrap" fxLayoutGap="30px">
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Duarcion</mat-label>
+                                       <input matInput type="number" placeholder="30 min"
+                                          formControlName="duracion_minutos">
+                                    </mat-form-field>
+                                 </div>
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Pecio</mat-label>
+                                       <input matInput type="number" formControlName="precio" placeholder="30.000">
+                                    </mat-form-field>
+                                 </div>
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Descripcion</mat-label>
+                                       <textarea matInput rows="2" formControlName="descripcion"></textarea>
+                                    </mat-form-field>
+                                 </div>
+                              </div>
+                              <div fxLayout="row">
+                                 <div fxFlex fxLayoutAlign="center center">
+                                    <button mat-raised-button type="submit"
+                                       [disabled]="infoEmpresaFormGroup.get('registroCategorias').value.length <=  0">Añadir
+                                       servicios</button>
+                                 </div>
+                              </div>
+                           </form>
+                           <br>
+                           <div fxLayout="row">
+                              <div fxFlex="100" fxLayoutAlign="center center">
+                                 <table mat-table style="width: 80%"
+                                    [dataSource]="infoEmpresaFormGroup.get('registroServicios').value"
+                                    class="mat-elevation-z8">
+
+                                    <ng-container matColumnDef="codigo">
+                                       <th mat-header-cell *matHeaderCellDef> Codigo </th>
+                                       <td mat-cell *matCellDef="let e">{{e.codigo}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="categoria">
+                                       <th mat-header-cell *matHeaderCellDef> Cod Categoria </th>
+                                       <td mat-cell *matCellDef="let e">{{e.cod_categoria}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="nombre">
+                                       <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                                       <td mat-cell *matCellDef="let e"> {{e.nombre}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="duracion">
+                                       <th mat-header-cell *matHeaderCellDef> Duracion </th>
+                                       <td mat-cell *matCellDef="let e"> {{e.duracion_minutos}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="precio">
+                                       <th mat-header-cell *matHeaderCellDef> Precio </th>
+                                       <td mat-cell *matCellDef="let e"> {{e.precio}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="acciones">
+                                       <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                                       <td mat-cell *matCellDef="let e; let i = index ">
+                                          <mat-icon
+                                             (click)="_sharedFunction.deletArrayFormContro(infoEmpresaFormGroup,'registroServicios',i)"
+                                             class="pointer" matTooltip="Eliminar">delete_forever
+                                          </mat-icon>
+                                       </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="servicesColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: servicesColumns;"></tr>
+                                 </table>
+                              </div>
+                           </div>
+                           <br>
+                           <div>
+                              <button mat-raised-button color="accent" matStepperPrevious>Atras</button>
+                              &nbsp;&nbsp;
+                              <button mat-raised-button color="accent" matStepperNext>Siguiente</button>
+                           </div>
+                        </form>
+                     </mat-step>
+
+                     <!-- seccion de registro de empleados -->
+                     <mat-step FormControlLike="registroEmpleados">
+                        <form formArrayName="registroEmpleados">
+                           <ng-template matStepLabel>Agregar Empleados</ng-template>
+                           <form [formGroup]="listaEmpleadosFormGoup"
+                              (ngSubmit)="_sharedFunction.addArrayFormCotrol(infoEmpresaFormGroup,listaEmpleadosFormGoup,'registroEmpleados')">
+                              <div fxLayout="row wrap" fxLayoutGap="30px">
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Nombre</mat-label>
+                                       <input type="text" matInput placeholder="eduardo" formControlName="nombre">
+                                    </mat-form-field>
+                                 </div>
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Apellido</mat-label>
+                                       <input type="text" matInput placeholder="perez perez" formControlName="apellido">
+                                    </mat-form-field>
+                                 </div>
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Telefono</mat-label>
+                                       <input type="tel" matInput placeholder="eduardo" formControlName="telefono">
+                                    </mat-form-field>
+                                 </div>
+                              </div>
+                              <div fxLayout="row wrap" fxLayoutGap="30px">
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Identificacion</mat-label>
+                                       <input type="number" matInput placeholder="123456789"
+                                          formControlName="identificacion">
+                                    </mat-form-field>
+                                 </div>
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Direccion</mat-label>
+                                       <input type="text" matInput placeholder="calle #03 etc"
+                                          formControlName="direccion">
+                                    </mat-form-field>
+                                 </div>
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-label>Correo</mat-label>
+                                       <input type="email" matInput placeholder="ejemplo@ejemplo.abc"
+                                          formControlName="correo">
+                                    </mat-form-field>
+                                 </div>
+                                 <div fxFlex>
+                                    <mat-form-field appearance="outline">
+                                       <mat-select placeholder="Servicios" formControlName="servicios" multiple>
+                                          <mat-select-trigger>
+                                             {{listaEmpleadosFormGoup.get('servicios').value ? listaEmpleadosFormGoup.get('servicios').value[0] : ''}}
+                                             <span *ngIf="listaEmpleadosFormGoup.get('servicios').value?.length > 1"
+                                                class="example-additional-selection">
+                                                (+{{listaEmpleadosFormGoup.get('servicios').value.length - 1}}
+                                                {{listaEmpleadosFormGoup.get('servicios').value?.length === 2 ? 'Servicio' : 'Servicios'}})
+                                             </span>
+                                          </mat-select-trigger>
+                                          <mat-option
+                                             *ngFor="let servicio of infoEmpresaFormGroup.get('registroServicios').value"
+                                             [value]="servicio.codigo">
+                                             {{servicio.nombre}} - {{servicio.codigo}}
+                                          </mat-option>
+                                       </mat-select>
+                                    </mat-form-field>
+                                 </div>
+                              </div>
+                              <div fxLayout="row">
+                                 <div fxFlex fxLayoutAlign="center center">
+                                    <button mat-raised-button type="submit"
+                                       [disabled]="infoEmpresaFormGroup.get('registroServicios').value.length <=  0">Añadir
+                                       empleados</button>
+                                 </div>
+                              </div>
+                           </form>
+                           <br>
+                           <div fxLayout="row">
+                              <div fxFlex="100" fxLayoutAlign="center center">
+                                 <table mat-table style="width: 80%"
+                                    [dataSource]="infoEmpresaFormGroup.get('registroEmpleados').value"
+                                    class="mat-elevation-z8">
+
+                                    <ng-container matColumnDef="nombre">
+                                       <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                                       <td mat-cell *matCellDef="let e"> {{e.nombre}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="telefono">
+                                       <th mat-header-cell *matHeaderCellDef> Telefono </th>
+                                       <td mat-cell *matCellDef="let e"> {{e.telefono}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="identificacion">
+                                       <th mat-header-cell *matHeaderCellDef> Identificacion </th>
+                                       <td mat-cell *matCellDef="let e"> {{e.identificacion}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="acciones">
+                                       <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                                       <td mat-cell *matCellDef="let e; let i = index ">
+                                          <mat-icon
+                                             (click)="_sharedFunction.deletArrayFormContro(infoEmpresaFormGroup,'registroEmpleados',i)"
+                                             class="pointer" matTooltip="Eliminar">delete_forever
+                                          </mat-icon>
+                                       </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="empleadosColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: empleadosColumns;"></tr>
+                                 </table>
+                              </div>
+                           </div>
+                           <br>
+                           <div>
+                              <button mat-raised-button color="accent" matStepperPrevious>Atras</button>
+                              &nbsp;&nbsp;
+                              <button mat-raised-button color="accent" matStepperNext>Siguiente</button>
+                           </div>
+                        </form>
+                     </mat-step>
+
+                     <mat-step [stepControl]="infoEmpresaFormGroup.get('infoInicio')">
+                        <ng-template matStepLabel>Informacion de inicio</ng-template>
+                        <br>
+                        <form formGroupName="infoInicio" autocomplete="off" (ngSubmit)="SaveEnterprise()">
+                           <div fxLayout="row" fxLayoutAlign="center center">
+                              <div fxFlex="40">
+                                 <mat-form-field appearance="outline">
+                                    <mat-label>Coreo</mat-label>
+                                    <input type="email" autocomplete="false" matInput formControlName="correo" required>
+                                    <mat-hint>usuario para ingresar al sistema</mat-hint>
+                                 </mat-form-field>
+                              </div>
+                           </div>
+                           <br>
+                           <div fxLayout="row" fxLayoutAlign="center center">
+                              <div fxFlex="40">
+                                 <mat-form-field appearance="outline">
+                                    <mat-label>Contraseña</mat-label>
+                                    <input type="password" autocomplete="false" matInput formControlName="contraseña"
+                                       required>
+                                    <mat-hint>contraseña para ingresar al sistema</mat-hint>
+                                 </mat-form-field>
+                              </div>
+                           </div>
+                           <br>
+                           <div>
+                              <button mat-raised-button color="accent" matStepperPrevious>Atras</button>
+                              &nbsp;&nbsp;
+                              <button mat-raised-button color="accent" [disabled]="! infoEmpresaFormGroup.valid"
+                                 type="submit">Finalizar</button>
+                           </div>
+                        </form>
                      </mat-step>
                   </mat-horizontal-stepper>
                </form>
