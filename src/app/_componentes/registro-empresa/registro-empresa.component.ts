@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { RegistroService } from '../../_servicios/registro/registro.service';
 import { EmpresaFormModel } from '../../_formModel/empresa.form-model'
 import { SharedFunctionService } from 'src/app/_servicios/shared-function.service';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class RegistroEmpresaComponent implements OnInit {
     constructor(
         private _registroService: RegistroService,
         private _empresaForm: EmpresaFormModel,
-        public _sharedFunction: SharedFunctionService
+        public _sharedFunction: SharedFunctionService,
+        private snackBar: MatSnackBar
     ) {
 
     }
@@ -33,7 +35,22 @@ export class RegistroEmpresaComponent implements OnInit {
     empleadosColumns: string[] = ['nombre', 'telefono', 'identificacion', 'acciones']
 
     SaveEnterprise() {
-        console.log(this.infoEmpresaFormGroup.value);
+        this._registroService.saveEntreprise(this.infoEmpresaFormGroup.value).subscribe((data: any) => {
+            if (data.code === 200) {
+                this.snackBar.open('Su empresa ha sido registrada con exito', 'Aceptar', {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    horizontalPosition: 'right'
+                });
+            } else {
+                this.snackBar.open('Error al registrar la empresa', 'Otra oportunidad', {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    horizontalPosition: 'right'
+                });
+
+            }
+        })
     }
 
 
