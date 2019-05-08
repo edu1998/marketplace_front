@@ -1,0 +1,37 @@
+<div fxLayout="row" fxLayoutAlign="center center" style="height: 100%;">
+  <div fxFlex="30" [fxFlex.lt-sm]="90">
+    <mat-card>
+      <mat-card-header style="justify-content: center !important">
+        <mat-card-title>INICIO</mat-card-title>
+        <mat-card-title>
+          <mat-icon style="font-size: 50px">person_pin</mat-icon>
+        </mat-card-title>
+      </mat-card-header>
+      <br>
+      <form #inicio="ngForm" novalidate (ngSubmit)="inicio.valid && Iniciar()">
+        <mat-card-content>
+          <div fxLayout="column" fxLayoutAlign="none none">
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Usuario</mat-label>
+                <input type="email" email="true" name="email" #user="ngModel" [(ngModel)]="credentials.user" matInput
+                  placeholder="eduardo@eduardo.com" required>
+                  <mat-error *ngIf="user.invalid && inicio.submitted ">Usuario incorrecto</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input type="password" name="pass" [(ngModel)]="credentials.pass" matInput placeholder="*********"
+                  required>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="center" style="margin-bottom: 0px;padding-bottom: 0px">
+          <button mat-raised-button color="accent" type="submit">INICIAR</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

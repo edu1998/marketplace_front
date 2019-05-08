@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,8 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 export class SharedFunctionService {
 
   constructor(
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private route: Router
   ) { }
 
   //Obtiene el form array al cual se le van a gregar los controles
@@ -41,5 +43,23 @@ export class SharedFunctionService {
     this.GetArrayFormControl(forRoot, propertyForm).
       removeAt(index)
   }
-  
+
+
+}
+
+export function lagout(paramNavigate: string, route?: Router) {
+  localStorage.removeItem('infosesion');
+  route.navigate(['login', paramNavigate])
+}
+
+export function parseJson(): string {
+  if (localStorage.getItem('infosesion')) {
+    let parse = JSON.parse(localStorage.getItem('infosesion'))
+    return parse.nombre
+  } else return ''
+}
+
+export function idEmpresOCliente(): number {
+  let parse = JSON.parse(localStorage.getItem('infosesion'))
+  return parse.id
 }

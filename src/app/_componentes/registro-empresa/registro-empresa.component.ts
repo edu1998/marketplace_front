@@ -5,6 +5,7 @@ import { RegistroService } from '../../_servicios/registro/registro.service';
 import { EmpresaFormModel } from '../../_formModel/empresa.form-model'
 import { SharedFunctionService } from 'src/app/_servicios/shared-function.service';
 import { MatSnackBar } from '@angular/material';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -35,22 +36,33 @@ export class RegistroEmpresaComponent implements OnInit {
     empleadosColumns: string[] = ['nombre', 'telefono', 'identificacion', 'acciones']
 
     SaveEnterprise() {
-        this._registroService.saveEntreprise(this.infoEmpresaFormGroup.value).subscribe((data: any) => {
-            if (data.code === 200) {
-                this.snackBar.open('Su empresa ha sido registrada con exito', 'Aceptar', {
-                    duration: 2000,
-                    verticalPosition: 'top',
-                    horizontalPosition: 'right'
-                });
-            } else {
-                this.snackBar.open('Error al registrar la empresa', 'Otra oportunidad', {
-                    duration: 2000,
-                    verticalPosition: 'top',
-                    horizontalPosition: 'right'
-                });
+        this._registroService.saveEntreprise(this.infoEmpresaFormGroup.value).subscribe(
+            {
+                next: (data: any) => {
+                    if (data.code === 200) {
+                        this.snackBar.open(data.message, 'Aceptar', {
+                            duration: 3000,
+                            verticalPosition: 'top',
+                            horizontalPosition: 'right'
+                        });
+                    } else {
+                        this.snackBar.open('Error al registrar la empresa', 'Otra oportunidad', {
+                            duration: 3000,
+                            verticalPosition: 'top',
+                            horizontalPosition: 'right'
+                        });
 
+                    }
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.snackBar.open(error.error.messageError, 'Ok', {
+                        duration: 3000,
+                        verticalPosition: 'top',
+                        horizontalPosition: 'right'
+                    });
+                }
             }
-        })
+        )
     }
 
 

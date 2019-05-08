@@ -1,10 +1,14 @@
+import { Environment } from 'src/app/_interfaces/environment';
+import { parseJson } from 'src/app/_servicios/shared-function.service';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+export const environment: Environment = {
   production: false,
-  url_api: 'http://localhost:7575/'
+  url_api: 'http://localhost:7575/',
+  name_sesion: parseJson()
 };
 
 /*

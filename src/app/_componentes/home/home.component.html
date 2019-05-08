@@ -15,14 +15,14 @@
           <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="30px">
             <div fxFlex="50" fxLayoutAlign="center center">
               <mat-chip-list style="width: 100%;">
-                <mat-chip color="accent" selected>
+                <mat-chip color="accent" selected [routerLink]="['/login','empresa']">
                   <mat-icon>store_mall_directory</mat-icon>Mi empresa
                 </mat-chip>
               </mat-chip-list>
             </div>
             <div fxFlex="50" fxLayoutAlign="center center">
               <mat-chip-list style="width: 100%;">
-                <mat-chip color="accent" selected>
+                <mat-chip color="accent" selected [routerLink]="['/login','cliente']">
                   <mat-icon>account_circle</mat-icon>Inicia como cliente
                 </mat-chip>
               </mat-chip-list>

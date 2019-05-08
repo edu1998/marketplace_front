@@ -1,4 +1,4 @@
-import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -52,15 +52,9 @@ export class EmpresaFormModel {
                 sabado: [false],
             }),
         }),
-        registroCategorias: this._formBuilder.array([
-
-        ]),
-        registroServicios: this._formBuilder.array([
-
-        ]),
-        registroEmpleados: this._formBuilder.array([
-
-        ]),
+        registroCategorias: this._formBuilder.array([]),
+        registroServicios: this._formBuilder.array([]),
+        registroEmpleados: this._formBuilder.array([]),
         infoInicio: this._formBuilder.group({
             correo: ['', [Validators.required, Validators.email]],
             contraseña: ['', Validators.required]

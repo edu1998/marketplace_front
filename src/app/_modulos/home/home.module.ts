@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
-import {MaterialModule} from '../material/material.module'
+import { MaterialModule } from '../material/material.module'
 
-import {HomeComponent} from '../../_componentes/home/home.component'
+import { HomeComponent } from '../../_componentes/home/home.component'
 
 @NgModule({
   declarations: [
@@ -14,6 +14,7 @@ import {HomeComponent} from '../../_componentes/home/home.component'
     CommonModule,
     HomeRoutingModule,
     MaterialModule,
-  ]
+  ],
+  bootstrap: [HomeComponent]
 })
 export class HomeModule { }
