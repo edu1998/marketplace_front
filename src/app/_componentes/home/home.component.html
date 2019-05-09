@@ -57,12 +57,12 @@
             <div fxFlex fxLayoutAlign="center center">
               <mat-form-field style="width: 25%">
                 <mat-label>Buscar...</mat-label>
-                <input matInput placeholder="Manga">
+                <input matInput placeholder="Manga" name="direccion" [(ngModel)]="direccionEmpresa">
                 <mat-icon matSuffix>search</mat-icon>
               </mat-form-field>
             </div>
             <div fxFlex fxLayoutAlign="center center">
-              <button mat-raised-button color="accent">Buscar</button>
+              <button mat-raised-button color="accent" (click)="buscarEmpresa()">Buscar</button>
             </div>
           </div>
         </mat-card-actions>

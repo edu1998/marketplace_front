@@ -1,43 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
-html, body {
-    height: 100%;
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+
+html,
+body {
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .body {
-    background-image: url("https://image.nyigde.com/photos/city/1/8065_3147_1024.jpg");
-    background-color: #fafafa;
-    height: 100%;
-    background-size: auto 100%;
+  background-image: url("https://image.nyigde.com/photos/city/1/8065_3147_1024.jpg");
+  background-color: #fafafa;
+  height: 100%;
+  background-size: auto 100%;
 }
 
 .content-card {
-    width: 70%;
-    background-color: #ffffffd1;
+  width: 70%;
+  background-color: #ffffffd1;
 }
 
 .capitalize {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 mat-form-field {
-    width: 100%;
+  width: 100%;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .example-spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .active-link {
-    color: #3f51b5 !important;
+  color: #3f51b5 !important;
 }

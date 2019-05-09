@@ -1,0 +1,32 @@
+<div *ngIf=" (listEmpresas | async) as list">
+  <h3 *ngIf="! list.length"> No hay empresa en esta direccion</h3>
+  <mat-accordion *ngIf="list.length">
+    <mat-expansion-panel *ngFor="let empresa of listEmpresas | async ">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="text-transform: capitalize">
+          {{empresa.nombre}}
+        </mat-panel-title>
+        <mat-panel-description style="text-transform: capitalize">
+          {{empresa.ubicacion}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div fxLayout="row" fxLayoutGap="30px" style="font-size: 17px">
+        <div fxFlex>
+          <span>Hora de apertura: </span><span>{{empresa.h_apertura}}</span>
+        </div>
+        <div fxFlex>
+          <span>Hora de cierre: </span><span>{{empresa.h_cierre}}</span>
+        </div>
+      </div>
+      <br>
+      <div fxLayout="row" style="font-size: 15px">
+        <div fxFlex>
+          <span>Dias de atencion: </span> <span>{{formatDias(empresa.dias_atencion)}}</span>
+        </div>
+      </div>
+      <mat-action-row>
+        <button mat-raised-button color="accent">AGENDAR CITA</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

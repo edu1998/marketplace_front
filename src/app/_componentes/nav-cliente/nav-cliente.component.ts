@@ -44,6 +44,11 @@ export class NavClienteComponent {
                 title: 'Editar',
                 icon: 'edit',
                 path: 'editar'
+            },
+            {
+                title: 'Agendar cita',
+                icon: 'calendar_today',
+                path: 'agendar-cita'
             }
         ]
     }

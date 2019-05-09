@@ -2,10 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MaterialModule} from './_modulos/material/material.module';
+import { MaterialModule } from './_modulos/material/material.module';
 import { LayoutModule } from '@angular/cdk/layout';
+
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,6 @@ import { LayoutModule } from '@angular/cdk/layout';
     LayoutModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

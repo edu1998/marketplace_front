@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AutenticateGuard } from './_guards/autenticate.guard'
 import { VerifiauthGuard } from './_guards/verifiauth.guard'
-import { typeaccounemterpriceGuard,typeaccounclientGuard } from './_guards/verifitypeaccount.guard';
+import { typeaccounemterpriceGuard, typeaccounclientGuard } from './_guards/verifitypeaccount.guard';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'empresa',
     loadChildren: './_modulos/empresa/empresa.module#EmpresaModule',
-    canActivate: [AutenticateGuard,typeaccounclientGuard]
+    canActivate: [AutenticateGuard, typeaccounclientGuard]
   },
   {
     path: 'cliente',

@@ -75,4 +75,9 @@ export class EmpresaService {
     return this.Http.put(`${environment.url_api}empresa/Empleados`, data)
   }
 
+  getEmprsaDireccion(direccion) {
+    return this.Http.get(`${environment.url_api}empresa/EmpresaDireccion/${direccion}`).pipe(
+      map((data: any) => data.data)
+    )
+  }
 }
