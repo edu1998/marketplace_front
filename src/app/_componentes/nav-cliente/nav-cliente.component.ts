@@ -27,9 +27,24 @@ export class NavClienteComponent {
     }
 
     env: Environment;
+    menus: any;
 
     lagout() {
         lagout('cliente', this.route)
     }
 
+    ngOnInit(): void {
+        this.menus = [
+            {
+                title: 'Inicio',
+                icon: '',
+                path: ''
+            },
+            {
+                title: 'Editar',
+                icon: 'edit',
+                path: 'editar'
+            }
+        ]
+    }
 }

@@ -33,7 +33,7 @@ export class ClienteFormModel {
         apellidos: ['', Validators.required],
         telefono: ['', Validators.required],
         direccion: ['', Validators.required],
-        correo: ['', [Validators.required, Validators.email]],
+        correo: ['', [Validators.required, Validators.email,]],
         identificacion: [''],
         contraseña: ['', Validators.required],
         rContraseña: ['']

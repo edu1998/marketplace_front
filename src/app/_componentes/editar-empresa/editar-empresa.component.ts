@@ -6,7 +6,6 @@ import { idEmpresOCliente } from '../../_servicios/shared-function.service'
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatTable } from '@angular/material';
 import { Subscription, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -112,9 +111,18 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   deleteCategorias(id) {
-    this._empresaSer.deleteCAtegorias(id).subscribe(data => {
-      this.getCategorias();
-      this.tableCategorias.renderRows();
+    this._empresaSer.deleteCAtegorias(id).subscribe({
+      next: () => {
+        this.getCategorias();
+        this.tableCategorias.renderRows();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.snackBar.open(error.error.messageError, 'Ok', {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      }
     });
   }
 
@@ -158,9 +166,18 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   deleteServicios(idServicio) {
-    this._empresaSer.deleteServicios(idServicio).subscribe(data => {
-      this.getServicios();
-      this.tableServicios.renderRows();
+    this._empresaSer.deleteServicios(idServicio).subscribe({
+      next: () => {
+        this.getServicios();
+        this.tableServicios.renderRows();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.snackBar.open(error.error.messageError, 'Ok', {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      }
     })
   }
 
@@ -171,7 +188,7 @@ export class EditarEmpresaComponent implements OnInit {
   addEmpleado() {
     this.empleadosSubscription.subscribe((data: Array<any>) => {
       const filter = data.filter(empleado => parseInt(empleado.identificacion) === this._empresaForm.listEmployes.value.identificacion)
-      if (! filter.length) {
+      if (!filter.length) {
         this._empresaForm.listEmployes.value.idEmpresa = idEmpresOCliente();
         this._empresaSer.addEmpleado(this._empresaForm.listEmployes.value)
           .subscribe({
@@ -205,10 +222,146 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   deleteEmleado(idEmpleado) {
-    this._empresaSer.deleteEmpleado(idEmpleado).subscribe(() => {
-      this.getEmpleados();
-      this.tableEmpleados.renderRows();
+    this._empresaSer.deleteEmpleado(idEmpleado).subscribe({
+      next: () => {
+        this.getEmpleados();
+        this.tableEmpleados.renderRows();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.snackBar.open(error.error.messageError, 'Ok', {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      }
     })
+  }
+
+  editCategoria: boolean;
+  idCategoria: number;
+  selectUpdateCategorias(categoria) {
+    this.editCategoria = true;
+    this.idCategoria = categoria.id
+    this._empresaForm.listCategories.patchValue({
+      codigo: categoria.codigo,
+      nombre: categoria.nombre,
+      descripcion: categoria.descripcion
+    })
+  }
+
+  updateCategoria() {
+    this._empresaForm.listCategories.value.id = this.idCategoria;
+    this._empresaSer.updateCategoria(this._empresaForm.listCategories.value)
+      .subscribe({
+        next: () => {
+          this._empresaForm.listCategories.reset();
+          this.getCategorias();
+          this.tableCategorias.renderRows();
+          this.idCategoria = null;
+          this.editCategoria = false;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.snackBar.open(error.error.messageError, 'Ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
+        }
+      })
+  }
+
+
+  editServicio: boolean;
+  selectServicio: any;
+  idServicio: number;
+  idCategoriaServicio: number;
+  selectUpdateServicio(servicio) {
+    this.idServicio = servicio.id;
+    this.editServicio = true;
+    this.selectServicio = servicio.cod_categoria
+    this._empresaForm.listServices.patchValue({
+      codigo: servicio.codigo,
+      nombre: servicio.nombre,
+      precio: servicio.precio,
+      duracion_minutos: servicio.duracion_minutos,
+      descripcion: servicio.descripcion,
+      cod_categoria: servicio.cod_categoria,
+    })
+  }
+
+  updateServicio() {
+    this._empresaForm.listServices.value.id = this.idServicio;
+    this._empresaForm.listServices.value.id_categoria = this.idCategoriaServicio;
+    this._empresaSer.updateServicio(this._empresaForm.listServices.value)
+      .subscribe({
+        next: () => {
+          this._empresaForm.listServices.reset();
+          this.getServicios();
+          this.editServicio = false;
+          this.selectServicio = null;
+          this.idServicio = null;
+          this.idCategoriaServicio = null;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.snackBar.open(error.error.messageError, 'Ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
+        }
+      })
+  }
+
+  editEmpleado: boolean;
+  idEmpleado: number;
+  codigosServicio: Array<any>
+  selectUpdateEmpleado(empleado) {
+    this.editEmpleado = true;
+    this.idEmpleado = empleado.id
+    this.codigosServicio = empleado.servicios.map(data => data.codigo);
+    this._empresaForm.listEmployes.patchValue({
+      nombre: empleado.nombre,
+      apellido: empleado.apellido,
+      telefono: empleado.telefono,
+      identificacion: empleado.identificacion,
+      direccion: empleado.direccion,
+      correo: empleado.correo,
+      servicios: this.codigosServicio
+    });
+  }
+
+  resetFormPersona() {
+    this._empresaForm.listEmployes.reset({
+      nombre: '',
+      apellido: '',
+      telefono: '',
+      identificacion: '',
+      direccion: '',
+      correo: '',
+      servicios: []
+    })
+  }
+
+  updateEmpleado() {
+    this._empresaForm.listEmployes.value.id = this.idEmpleado;
+    this._empresaForm.listEmployes.value.idEmpresa = idEmpresOCliente();
+    console.log(this._empresaForm.listEmployes.value);
+    this._empresaSer.updateEmpleado(this._empresaForm.listEmployes.value)
+      .subscribe({
+        next: (data) => {
+          this.resetFormPersona();
+          this.idEmpleado = null;
+          this.editEmpleado = false;
+          this.getEmpleados();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.snackBar.open(error.error.messageError, 'Ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
+        }
+      })
   }
 
   ngOnInit(): void {

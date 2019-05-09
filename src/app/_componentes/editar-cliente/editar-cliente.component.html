@@ -1,0 +1,62 @@
+<div fxLayout="row" fxLayoutAlign="center center" style="padding-bottom: 30px;padding-top: 15px">
+   <div fxFlex="80">
+      <mat-card>
+         <mat-card-header>
+            <mat-card-title>Actualizar datos</mat-card-title>
+         </mat-card-header>
+         <br>
+         <form [formGroup]="_clienteForm.infoCliente"
+            (ngSubmit)="_clienteForm.infoCliente.valid && updateClient(); _clienteForm.infoCliente.touched">
+            <mat-card-content>
+               <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="30px">
+                  <div fxFlex>
+                     <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" type="text" required placeholder="Eduardo">
+                     </mat-form-field>
+                  </div>
+                  <div fxFlex>
+                     <mat-form-field appearance="outline">
+                        <mat-label>Apellidos</mat-label>
+                        <input matInput formControlName="apellidos" type="text" required placeholder="Tordecilla paez">
+                     </mat-form-field>
+                  </div>
+                  <div fxFlex>
+                     <mat-form-field appearance="outline">
+                        <mat-label>Identificacion</mat-label>
+                        <input matInput formControlName="identificacion" type="text" placeholder="123456789">
+                     </mat-form-field>
+                  </div>
+               </div>
+               <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="30px">
+                  <div fxFlex>
+                     <mat-form-field appearance="outline">
+                        <mat-label>Telefono</mat-label>
+                        <input matInput formControlName="telefono" type="text" required>
+                     </mat-form-field>
+                  </div>
+                  <div fxFlex>
+                     <mat-form-field appearance="outline">
+                        <mat-label>Direccion</mat-label>
+                        <input matInput formControlName="direccion" type="text" required
+                           placeholder="avenida hola calle #2">
+                     </mat-form-field>
+                  </div>
+                  <div fxFlex>
+                     <mat-form-field appearance="outline">
+                        <mat-label>Correo</mat-label>
+                        <input matInput formControlName="correo" type="text" disabled required
+                           placeholder="example@example.abc">
+                        <mat-hint>Correo para ingresar al sistema</mat-hint>
+                     </mat-form-field>
+                  </div>
+               </div>
+            </mat-card-content>
+            <mat-card-actions style="margin-bottom: 0px;margin-left: 3px">
+               <button mat-raised-button color="accent" type="submit">ACUTULIZAR</button>
+            </mat-card-actions>
+         </form>
+      </mat-card>
+   </div>
+
+</div>

@@ -35,13 +35,17 @@ export class EmpresaService {
     return this.Http.delete(`${environment.url_api}empresa/Categorias/${idCategoria}`)
   }
 
-  getServicios(idEmpresa){
+  updateCategoria(data) {
+    return this.Http.put(`${environment.url_api}empresa/Categorias`, data)
+  }
+
+  getServicios(idEmpresa) {
     return this.Http.get(`${environment.url_api}empresa/Servicios/${idEmpresa}`).pipe(
       map((data: any) => data.data)
     )
   }
 
-  addServicios(data){
+  addServicios(data) {
     return this.Http.post(`${environment.url_api}empresa/Servicios`, data)
   }
 
@@ -49,18 +53,26 @@ export class EmpresaService {
     return this.Http.delete(`${environment.url_api}empresa/Servicios/${idServicio}`)
   }
 
-  getEmpleados(idEmpresa){
+  updateServicio(data) {
+    return this.Http.put(`${environment.url_api}empresa/Servicios`, data)
+  }
+
+  getEmpleados(idEmpresa) {
     return this.Http.get(`${environment.url_api}empresa/Empleados/${idEmpresa}`).pipe(
       map((data: any) => data.data)
     )
   }
 
-  addEmpleado(data){
+  addEmpleado(data) {
     return this.Http.post(`${environment.url_api}empresa/Empleados`, data)
   }
 
   deleteEmpleado(idEmpleado) {
     return this.Http.delete(`${environment.url_api}empresa/Empleados/${idEmpleado}`)
+  }
+
+  updateEmpleado(data) {
+    return this.Http.put(`${environment.url_api}empresa/Empleados`, data)
   }
 
 }
