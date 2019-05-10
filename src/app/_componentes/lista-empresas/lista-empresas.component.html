@@ -25,7 +25,10 @@
         </div>
       </div>
       <mat-action-row>
-        <button mat-raised-button color="accent">AGENDAR CITA</button>
+        <button (click)="(redirect) ? redireccion(empresa.id) : salidaOutput(empresa.id)" mat-raised-button
+          color="accent">
+          AGENDAR CITA
+        </button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

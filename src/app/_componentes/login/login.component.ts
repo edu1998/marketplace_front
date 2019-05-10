@@ -34,7 +34,11 @@ export class LoginComponent implements OnInit {
                             this._router.navigate(['empresa'])
                             break;
                         case 2:
-                            this._router.navigate(['cliente']);
+                            if (localStorage.getItem('urlcita')) {
+                                this._router.navigate([localStorage.getItem('urlcita')])
+                            } else {
+                                this._router.navigate(['cliente']);
+                            }
                             break;
                         default:
                             break;

@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   buscarEmpresa() {
     this.matdialog.open(ListaEmpresa, {
       data: { direccion: this.direccionEmpresa },
-      width : '700px'
+      width: '700px'
     })
   }
   ngOnInit() {
@@ -34,9 +34,9 @@ export class ListaEmpresa {
     public dialogRef: MatDialogRef<ListaEmpresa>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit(): void {
-  }
-  onNoClick(): void {
+  close(idEmpresa) {
     this.dialogRef.close();
+  }
+  ngOnInit(): void {
   }
 }

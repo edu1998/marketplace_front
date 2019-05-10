@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { EmpresaService } from 'src/app/_servicios/empresa/empresa.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-empresas',
@@ -10,8 +11,12 @@ import { Observable } from 'rxjs';
 export class ListaEmpresasComponent implements OnInit {
 
   @Input('direccionFilter') direccionFilter: string;
+  @Input('redirect') redirect: boolean; //si se debe enviar el parametro por la url o por un ouput
+  @Output('idEmpresa') idEmpresa = new EventEmitter<any>();
+
   constructor(
-    private _empresaSer: EmpresaService
+    private _empresaSer: EmpresaService,
+    private router: Router
   ) { }
 
   listEmpresas: Observable<any>
@@ -33,6 +38,14 @@ export class ListaEmpresasComponent implements OnInit {
   daysOfWeekSorter(x, y) {
     const daysOfWeek = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]
     return daysOfWeek.indexOf(x) - daysOfWeek.indexOf(y);
+  }
+
+  redireccion(idEmpresa) {
+    this.router.navigate(['/cliente/agendar-cita', idEmpresa]);
+    this.idEmpresa.emit('salir')
+  }
+  salidaOutput(idEmpresa) {
+    this.idEmpresa.emit(idEmpresa)
   }
 
   ngOnInit() {

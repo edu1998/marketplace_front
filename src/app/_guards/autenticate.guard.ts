@@ -13,13 +13,16 @@ export class AutenticateGuard implements CanActivate {
     return this.checkAuth(state.url)
   }
 
-  checkAuth(params): boolean {
+  checkAuth(params: string): boolean {
     if (localStorage.getItem('infosesion')) {
       return true;
     } else {
+      let paramsC = params.split('/')[2];
       params === '/empresa' ? this.router.navigate(['/login', 'empresa']) :
-        params === '/cliente' ? this.router.navigate(['/login', 'cliente']) : null
-        
+        params === '/cliente' || paramsC === 'agendar-cita' ? this.router.navigate(['/login', 'cliente']) : null;
+      if (paramsC === 'agendar-cita') {
+        localStorage.setItem('urlcita', params)
+      }
       return false;
     }
   }

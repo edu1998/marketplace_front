@@ -1,4 +1,6 @@
-  <full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins" [contentHeight]="400" [header]="header"
-    [defaultView]="'timeGridWeek'" [buttonText]="buttonText" allDayText="Disponibles" [minTime]="minTimeEmpresa"
-    [maxTime]="maxTimeEmpresa">
-  </full-calendar>
+<full-calendar defaultView="dayGridMonth" #fullcalendar [plugins]="calendarPlugins" [contentHeight]="400"
+  [header]="header" [defaultView]="'timeGridWeek'" [buttonText]="buttonText" [allDaySlot]="false"
+  [minTime]="minTimeEmpresa" [maxTime]="maxTimeEmpresa" [validRange]="validRange" [selectOverlap]=false
+  (dateClick)="handleDateClick($event,fullcalendar)" [events]="event" [eventColor]="'#378006'">
+</full-calendar>
+{{event | json}}
