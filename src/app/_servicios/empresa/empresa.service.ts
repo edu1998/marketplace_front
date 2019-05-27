@@ -8,8 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class EmpresaService {
 
-  constructor(private Http: HttpClient) {
-  }
+  constructor(private Http: HttpClient) { }
 
   getInfoGeneral(idEmpresa) {
     return this.Http.get(`${environment.url_api}empresa/InfoGeneral/${idEmpresa}`).pipe(

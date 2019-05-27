@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NavClienteComponent } from '../../_componentes/nav-cliente/nav-cliente.component'
 import { EditarClienteComponent } from '../../_componentes/editar-cliente/editar-cliente.component';
 import { AgendarCitaClienteComponent } from '../../_componentes/agendar-cita-cliente/agendar-cita-cliente.component';
+import { ListaCitasClientesComponent } from '../../_componentes/lista-citas-clientes/lista-citas-clientes.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
       {
         path: 'agendar-cita/:idEmpresa',
         component: AgendarCitaClienteComponent
+      },
+      {
+        path: 'lista-citas',
+        component: ListaCitasClientesComponent
       }
     ]
   }

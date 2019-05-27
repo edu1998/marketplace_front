@@ -12,12 +12,14 @@ import { ClienteFormModel } from 'src/app/_formModel/cliente.form-model';
 import { NavClienteComponent } from '../../_componentes/nav-cliente/nav-cliente.component'
 import { EditarClienteComponent } from '../../_componentes/editar-cliente/editar-cliente.component';
 import { AgendarCitaClienteComponent } from '../../_componentes/agendar-cita-cliente/agendar-cita-cliente.component';
+import { ListaCitasClientesComponent } from '../../_componentes/lista-citas-clientes/lista-citas-clientes.component';
 
 @NgModule({
   declarations: [
     NavClienteComponent,
     EditarClienteComponent,
-    AgendarCitaClienteComponent
+    AgendarCitaClienteComponent,
+    ListaCitasClientesComponent
   ],
   imports: [
     CommonModule,

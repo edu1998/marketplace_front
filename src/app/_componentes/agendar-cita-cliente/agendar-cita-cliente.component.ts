@@ -43,7 +43,6 @@ export class AgendarCitaClienteComponent implements OnInit {
     } else {
       for (let i = 0; i < this.serviciosAgragados.length; i++) {
         if (this.serviciosAgragados[i].id === servcio.source.value['id']) {
-          console.log([this.serviciosAgragados[i].id, servcio.source.value['id']]);
           this.serviciosAgragados.splice(i, 1)
           break
         }

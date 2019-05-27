@@ -1,6 +1,15 @@
 <full-calendar defaultView="dayGridMonth" #fullcalendar [plugins]="calendarPlugins" [contentHeight]="400"
   [header]="header" [defaultView]="'timeGridWeek'" [buttonText]="buttonText" [allDaySlot]="false"
   [minTime]="minTimeEmpresa" [maxTime]="maxTimeEmpresa" [validRange]="validRange" [selectOverlap]=false
-  (dateClick)="handleDateClick($event,fullcalendar)" [events]="event" [eventColor]="'#378006'">
+  (dateClick)="handleDateClick($event,fullcalendar)" [events]="event" [eventColor]="'#378006'" [displayEventEnd]="true">
 </full-calendar>
-{{event | json}}
+<br>
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="anadido">
+  <div fxFlex="30" fxFlexAlign="center center">
+    <button mat-raised-button (click)="saveCita()" color="accent">AGENDAR CITA</button>
+  </div>
+  <div fxFlex="30" fxFlexAlign="center center">
+    <button mat-raised-button (click)="removeEvets()" color="accent">CANCELAR</button>
+  </div>
+</div>
+<!-- {{event | json}} -->

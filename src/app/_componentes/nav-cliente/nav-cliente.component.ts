@@ -35,11 +35,11 @@ export class NavClienteComponent {
 
     ngOnInit(): void {
         this.menus = [
-            {
-                title: 'Inicio',
-                icon: '',
-                path: ''
-            },
+            // {
+            //     title: 'Inicio',
+            //     icon: '',
+            //     path: ''
+            // },
             {
                 title: 'Editar',
                 icon: 'edit',
@@ -49,6 +49,11 @@ export class NavClienteComponent {
                 title: 'Agendar cita',
                 icon: 'calendar_today',
                 path: 'agendar-cita'
+            },
+            {
+                title : 'Lista citas',
+                icon: 'view_list',
+                path: 'lista-citas'
             }
         ]
     }
