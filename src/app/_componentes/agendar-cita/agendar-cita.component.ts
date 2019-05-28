@@ -21,6 +21,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AgendarCitaComponent implements OnInit {
 
   @Input('idEmpresa') id_empresa: number;
+  @Input('idCliente') id_cliente: number;
   @Input('eventos') eventos: Array<any>;
   @Input('serviciosSeleccionados') serviciosSeleccionados: Array<any>;
 
@@ -127,7 +128,7 @@ export class AgendarCitaComponent implements OnInit {
 
     const dataCita = {
       fecha: myEvent.start,
-      cliente_id: idEmpresOCliente(),
+      cliente_id: this.id_cliente,
       id_empresa: this.id_empresa,
       servicios: this.serviciosSeleccionados
     }

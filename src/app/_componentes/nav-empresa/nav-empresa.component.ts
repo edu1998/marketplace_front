@@ -35,15 +35,25 @@ export class NavEmpresaComponent implements OnInit {
 
   ngOnInit() {
     this.menus = [
-      {
-        title: 'Inicio',
-        icon: '',
-        path: '/empresa'
-      },
+      // {
+      //   title: 'Inicio',
+      //   icon: '',
+      //   path: '/empresa'
+      // },
       {
         title: 'Configuarar',
         icon: 'edit',
         path: 'editar'
+      },
+      {
+        title : 'Agendar cita',
+        icon : 'schedule',
+        path : 'agendar-cita'
+      },
+      {
+        title : 'Lista de cita',
+        icon : 'view_list',
+        path : 'lista-citas'
       }
     ]
   }

@@ -1,37 +1,32 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { EmpresaService } from 'src/app/_servicios/empresa/empresa.service';
 import { Observable } from 'rxjs';
-import { MatCheckbox, MatCheckboxChange } from '@angular/material';
-import {idEmpresOCliente} from '../../_servicios/shared-function.service'
+import { MatCheckboxChange } from '@angular/material';
+import { idEmpresOCliente } from '../../_servicios/shared-function.service'
+import { ClienteService } from 'src/app/_servicios/cliente/cliente.service';
 
 @Component({
-  selector: 'app-agendar-cita-cliente',
-  templateUrl: './agendar-cita-cliente.component.html',
-  styleUrls: ['./agendar-cita-cliente.component.css']
+  selector: 'app-agendar-cita-empres',
+  templateUrl: './agendar-cita-empres.component.html',
+  styleUrls: ['./agendar-cita-empres.component.css']
 })
-export class AgendarCitaClienteComponent implements OnInit {
+export class AgendarCitaEmpresComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
-    private empresaSer: EmpresaService
+    private empresaSer: EmpresaService,
+    private clienteSer: ClienteService
   ) {
-    this.idEmpresa = this.route.params['value'].idEmpresa;
-    this.idCliente = idEmpresOCliente();
+    this.idEmpresa = idEmpresOCliente();
   }
 
-  idEmpresa: number;
-  idCliente : any
   serviciosObservable: Observable<any>;
   serviciosAgragados: Array<any>;
-
-  GetIdEmpresa(idEmpresa) {
-    this.idEmpresa = idEmpresa;
-    this.getServicios();
-  }
+  docCliente: string;
+  idEmpresa: any;
+  idCliente: number
 
   getServicios() {
-    this.serviciosObservable = this.empresaSer.getServicios(this.idEmpresa)
+    this.serviciosObservable = this.empresaSer.getServicios(idEmpresOCliente())
   }
   selectServices(servcio: MatCheckboxChange) {
     if (servcio.checked) {
@@ -54,10 +49,20 @@ export class AgendarCitaClienteComponent implements OnInit {
     }
   }
 
+  getCliente() {
+    console.log(this.docCliente);
+    
+    this.clienteSer.getCLiente(this.docCliente).subscribe(data => {
+      console.log(data);
+      
+      this.idCliente = (data) ? data.id : null;
+    })
+  }
+
   ngOnInit() {
     localStorage.removeItem('urlcita');
     this.serviciosAgragados = [];
-    (this.idEmpresa) ? this.getServicios() : null;
+    this.getServicios();
   }
 
 }

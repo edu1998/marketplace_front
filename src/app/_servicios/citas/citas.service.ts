@@ -47,4 +47,10 @@ export class CitasService {
       map((data: any) => data.data)
     )
   }
+
+  getCitasEmpresa(idempresa) {
+    return this.Http.get(`${environment.url_api}citas/CitasEmpresa/${idempresa}`).pipe(
+      map((data: any) => data.data)
+    )
+  }
 }

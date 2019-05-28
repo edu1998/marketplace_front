@@ -23,6 +23,7 @@
 
 <div *ngIf="idEmpresa" fxLayout="row" fxLayoutAlign="center center" style="margin-top: 15px;margin-bottom: 30px">
   <div fxFlex="80">
-    <app-agendar-cita [idEmpresa]="idEmpresa" [serviciosSeleccionados]="serviciosAgragados" [eventos]="serviciosAgragados"></app-agendar-cita>
+    <app-agendar-cita [idEmpresa]="idEmpresa" [idCliente]="idCliente" [serviciosSeleccionados]="serviciosAgragados"
+      [eventos]="serviciosAgragados"></app-agendar-cita>
   </div>
 </div>

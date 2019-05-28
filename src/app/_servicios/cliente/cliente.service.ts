@@ -16,8 +16,14 @@ export class ClienteService {
       map((data: any) => data.data)
     )
   }
-
+  
   updateInfoPersona(info) {
     return this.Http.put(`${environment.url_api}Cliente/InfoPersona`, info)
+  }
+  
+  getCLiente(documentoCliente){
+    return this.Http.get(`${environment.url_api}cliente/GetPersona/${documentoCliente}`).pipe(
+      map((data: any) => data.data)
+    )
   }
 }

@@ -9,11 +9,16 @@ import { NavEmpresaComponent } from '../../_componentes/nav-empresa/nav-empresa.
 import { EditarEmpresaComponent } from '../../_componentes/editar-empresa/editar-empresa.component'
 import { EmpresaFormModel } from 'src/app/_formModel/empresa.form-model';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { AgendarCitaEmpresComponent } from '../../_componentes/agendar-cita-empres/agendar-cita-empres.component';
+import { GenrealComponentModule } from '../genreal-component/genreal-component.module';
+import { ListaCitaEmpresComponent } from '../../_componentes/lista-cita-empres/lista-cita-empres.component';
 
 @NgModule({
   declarations: [
     NavEmpresaComponent,
-    EditarEmpresaComponent
+    EditarEmpresaComponent,
+    AgendarCitaEmpresComponent,
+    ListaCitaEmpresComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +26,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    GenrealComponentModule
   ],
   providers: [
     EmpresaFormModel,
