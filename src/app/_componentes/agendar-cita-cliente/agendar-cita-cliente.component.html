@@ -1,29 +1,45 @@
 <div *ngIf="! idEmpresa" fxLayout="row" fxLayoutAlign="center center" style="margin-top: 15px;margin-bottom: 30px">
   <div fxFlex="80">
-    <app-lista-empresas [direccionFilter]="'manga'" (idEmpresa)="GetIdEmpresa($event)"></app-lista-empresas>
-  </div>
-</div>
-
-
-<div *ngIf="idEmpresa" fxLayout="row" fxLayoutAlign="center center" style="margin-top: 15px;margin-bottom: 30px">
-  <div fxFlex="80">
     <mat-card>
+      <mat-card-header>
+        <mat-card-title>Buscar por direccion</mat-card-title>
+      </mat-card-header>
       <mat-card-content>
-        <h2 class="example-h2">Elegir Servicios</h2>
-        <section class="example-section">
-          <mat-checkbox *ngFor="let servicio of serviciosObservable | async" [value]="servicio"
-            (change)="selectServices($event)" class="example-margin">
-            {{servicio.nombre}}
-          </mat-checkbox>
-        </section>
+        <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="30px">
+          <div fxFlex="80">
+            <mat-form-field appearance="outline">
+              <mat-label>Direccion</mat-label>
+              <input matInput [(ngModel)]="direccion" [disabled]="mostrarEmppresas" placeholder="Manga">
+            </mat-form-field>
+          </div>
+          <div fxFlex="20">
+            <button mat-raised-button style="margin-top:10px !important" *ngIf="!mostrarEmppresas"
+              (click)="mostrarEmppresas = true">Buscar</button>
+            <button mat-raised-button style="margin-top:10px !important" *ngIf="mostrarEmppresas"
+              (click)="mostrarEmppresas = false">Limpiar</button>
+          </div>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
 </div>
 
-<div *ngIf="idEmpresa" fxLayout="row" fxLayoutAlign="center center" style="margin-top: 15px;margin-bottom: 30px">
+<div *ngIf="! idEmpresa && mostrarEmppresas" fxLayout="row" fxLayoutAlign="center center"
+  style="margin-top: 15px;margin-bottom: 30px">
   <div fxFlex="80">
-    <app-agendar-cita [idEmpresa]="idEmpresa" [idCliente]="idCliente" [serviciosSeleccionados]="serviciosAgragados"
-      [eventos]="serviciosAgragados"></app-agendar-cita>
+    <app-lista-empresas [direccionFilter]="direccion" (idEmpresa)="GetIdEmpresa($event)"></app-lista-empresas>
+  </div>
+</div>
+
+<div *ngIf="idEmpresa">
+
+  <app-elegir-servicios [idEmpresa]="idEmpresa"
+    (serviciosAgregados)="serviciosAgragados = onServiciosAgregados($event)"></app-elegir-servicios>
+
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 15px;margin-bottom: 30px">
+    <div fxFlex="80">
+      <app-agendar-cita [idEmpresa]="idEmpresa" [idCliente]="idCliente" [serviciosSeleccionados]="serviciosAgragados"
+        [eventos]="serviciosAgragados"></app-agendar-cita>
+    </div>
   </div>
 </div>

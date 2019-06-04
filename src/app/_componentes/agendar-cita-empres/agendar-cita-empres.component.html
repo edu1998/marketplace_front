@@ -20,22 +20,11 @@
     </mat-card>
   </div>
 </div>
+
 <div *ngIf="idCliente">
-  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 15px;margin-bottom: 30px">
-    <div fxFlex="80">
-      <mat-card>
-        <mat-card-content>
-          <h2 class="example-h2">Elegir Servicios</h2>
-          <section class="example-section">
-            <mat-checkbox *ngFor="let servicio of serviciosObservable | async" [value]="servicio"
-              (change)="selectServices($event)" class="example-margin">
-              {{servicio.nombre}}
-            </mat-checkbox>
-          </section>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
+  
+  <app-elegir-servicios [idEmpresa]="idEmpresa"
+    (serviciosAgregados)="serviciosAgragados = onServiciosAgregados($event)"></app-elegir-servicios>
 
   <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 15px;margin-bottom: 30px">
     <div fxFlex="95">

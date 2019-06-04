@@ -1,3 +1,4 @@
+<button mat-raised-button class="button-back" color="accent" [routerLink]="'/'">Atras</button>
 <div fxLayout="row" fxLayoutAlign="center center" style="height: 100%;">
   <div fxFlex="30" [fxFlex.lt-sm]="90">
     <mat-card>
@@ -16,7 +17,7 @@
                 <mat-label>Usuario</mat-label>
                 <input type="email" email="true" name="email" #user="ngModel" [(ngModel)]="credentials.user" matInput
                   placeholder="eduardo@eduardo.com" required>
-                  <mat-error *ngIf="user.invalid && inicio.submitted ">Usuario incorrecto</mat-error>
+                <mat-error *ngIf="user.invalid && inicio.submitted ">Usuario incorrecto</mat-error>
               </mat-form-field>
             </div>
             <div fxFlex>

@@ -5,13 +5,16 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 
-import { ListaEmpresasComponent } from 'src/app/_componentes/lista-empresas/lista-empresas.component';
+import { ListaEmpresasComponent } from '../../_componentes/lista-empresas/lista-empresas.component';
+import { ElegirServiciosComponent, empleadosServicios } from '../../_componentes/elegir-servicios/elegir-servicios.component';
 
 
 @NgModule({
   declarations: [
     ListaEmpresasComponent,
-    AgendarCitaComponent
+    AgendarCitaComponent,
+    ElegirServiciosComponent,
+    empleadosServicios
   ],
   imports: [
     CommonModule,
@@ -20,7 +23,12 @@ import { ListaEmpresasComponent } from 'src/app/_componentes/lista-empresas/list
   ],
   exports: [
     ListaEmpresasComponent,
-    AgendarCitaComponent
+    AgendarCitaComponent,
+    ElegirServiciosComponent
+  ],
+  entryComponents: [
+    ElegirServiciosComponent,
+    empleadosServicios
   ]
 })
 export class GenrealComponentModule { }

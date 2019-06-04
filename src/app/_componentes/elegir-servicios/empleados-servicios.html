@@ -1,0 +1,12 @@
+<h1 matDialogTitle>Selecione empleado</h1>
+
+<mat-dialog-content>
+    <mat-selection-list (selectionChange)="handleSelection($event)">
+        <mat-list-option *ngFor="let empleado of empleadosPorServicio" [value]="empleado">
+            {{empleado.nombre + ' ' + empleado.apellido}}
+        </mat-list-option>
+    </mat-selection-list>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()" [disabled]="!empleadoSelect">ACEPTAR</button>
+</mat-dialog-actions>

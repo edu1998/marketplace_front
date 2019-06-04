@@ -1,0 +1,30 @@
+<h1 matDialogTitle>Informacion de la cita</h1>
+
+<mat-dialog-content>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxFlex>
+            Identificacion Cleinte: {{data.info.idenCLiente}}
+        </div>
+        <div fxFlex>
+            Fecha cita: {{data.info.fecha_cita | date : 'medium'}}
+        </div>
+        <div fxFlex>
+            Ubicacion empresa: {{data.info.ubicacion_empresa}}
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxFlex>
+            <h4>Servicios adquiridos</h4>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxFlex="50%" *ngFor="let item of data.info.info_mas">
+            <h3>Nombre servicio : {{item.nombre_servicio}}</h3>
+            <h4>Empleado : {{item.nom_empleado}}</h4>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">ACEPTAR</button>
+</mat-dialog-actions>

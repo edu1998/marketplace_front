@@ -24,6 +24,8 @@ export class AgendarCitaClienteComponent implements OnInit {
   idCliente : any
   serviciosObservable: Observable<any>;
   serviciosAgragados: Array<any>;
+  direccion : string;
+  mostrarEmppresas:boolean = false
 
   GetIdEmpresa(idEmpresa) {
     this.idEmpresa = idEmpresa;
@@ -52,6 +54,10 @@ export class AgendarCitaClienteComponent implements OnInit {
       }
 
     }
+  }
+
+  onServiciosAgregados(Servicios){
+    return Servicios
   }
 
   ngOnInit() {

@@ -41,7 +41,7 @@ export class NavEmpresaComponent implements OnInit {
       //   path: '/empresa'
       // },
       {
-        title: 'Configuarar',
+        title: 'Configurar',
         icon: 'edit',
         path: 'editar'
       },

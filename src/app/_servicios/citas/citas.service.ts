@@ -22,9 +22,13 @@ export class CitasService {
 
           let totalEnd = 0
           for (const service of iterator.servicios) {
-            totalEnd = totalEnd + service.duracion_minutos
+            totalEnd = totalEnd + service.duracion_minutos,
+            console.log(totalEnd);
           }
+
           const end = moment(iterator.start).add(totalEnd, 'm');
+          console.log(end.format('YYYY-MM-DDTHH:mm:ss'));
+          
           result.push({
             title: 'Ocupado',
             start: iterator.start,
@@ -44,6 +48,12 @@ export class CitasService {
 
   getCitasCliente(idCliente) {
     return this.Http.get(`${environment.url_api}citas/CitasCliente/${idCliente}`).pipe(
+      map((data: any) => data.data)
+    )
+  }
+
+  getEmpleadosPorServicio(idServicio) {
+    return this.Http.get(`${environment.url_api}empleado/GetEmpleadosPorServicio/${idServicio}`).pipe(
       map((data: any) => data.data)
     )
   }

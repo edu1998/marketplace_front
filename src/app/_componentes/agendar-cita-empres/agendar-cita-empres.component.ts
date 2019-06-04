@@ -28,33 +28,17 @@ export class AgendarCitaEmpresComponent implements OnInit {
   getServicios() {
     this.serviciosObservable = this.empresaSer.getServicios(idEmpresOCliente())
   }
-  selectServices(servcio: MatCheckboxChange) {
-    if (servcio.checked) {
-      if (!this.serviciosAgragados.length) {
-        this.serviciosAgragados.push(servcio.source.value)
-      } else {
-        const result = this.serviciosAgragados.filter(ser => ser.id === servcio.source.value['id']);
-        if (!result.length) {
-          this.serviciosAgragados.push(servcio.source.value)
-        }
-      }
-    } else {
-      for (let i = 0; i < this.serviciosAgragados.length; i++) {
-        if (this.serviciosAgragados[i].id === servcio.source.value['id']) {
-          this.serviciosAgragados.splice(i, 1)
-          break
-        }
-      }
 
-    }
+  onServiciosAgregados(Servicios) {
+    return Servicios
   }
 
   getCliente() {
     console.log(this.docCliente);
-    
+
     this.clienteSer.getCLiente(this.docCliente).subscribe(data => {
       console.log(data);
-      
+
       this.idCliente = (data) ? data.id : null;
     })
   }

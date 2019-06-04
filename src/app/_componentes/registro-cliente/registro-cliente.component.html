@@ -1,4 +1,8 @@
 <div class="body">
+   <button mat-raised-button class="button-back" style="margin-bottom: 0px !important" color="accent"
+      [routerLink]="'/'">
+      Atras
+   </button>
    <div fxLayout="row" fxLayoutAlign="center center" [ngStyle.gt-sm]="{'height.%': 100}">
       <div fxFlex fxLayoutAlign="center center">
          <mat-card class="content-card">
@@ -13,7 +17,8 @@
                      <mat-card-title>Ingrese la informacion solicitada</mat-card-title>
                   </mat-card-header>
                   <mat-card-content>
-                     <form [formGroup]="_clienteForm.infoCliente" (ngSubmit)="_clienteForm.infoCliente.valid && saveClient(); _clienteForm.infoCliente.touched">
+                     <form [formGroup]="_clienteForm.infoCliente"
+                        (ngSubmit)="_clienteForm.infoCliente.valid && saveClient(); _clienteForm.infoCliente.touched">
                         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="30px">
                            <div fxFlex>
                               <mat-form-field appearance="outline">
@@ -54,7 +59,7 @@
                                  <mat-label>Correo</mat-label>
                                  <input matInput formControlName="correo" type="text" required
                                     placeholder="example@example.abc">
-                                    <mat-hint>Correo para ingresar al sistema</mat-hint>
+                                 <mat-hint>Correo para ingresar al sistema</mat-hint>
                               </mat-form-field>
                            </div>
                         </div>
@@ -64,17 +69,18 @@
                                  <mat-label>Contraseña</mat-label>
                                  <input matInput formControlName="contraseña" type="password" required
                                     placeholder="*********">
-                                    <mat-hint>Contraseña para ingresar al sistema</mat-hint>
+                                 <mat-hint>Contraseña para ingresar al sistema</mat-hint>
                               </mat-form-field>
                            </div>
                            <div fxFlex>
                               <mat-form-field appearance="outline">
                                  <mat-label>Repetir contraseña</mat-label>
-                                 <input matInput formControlName="rContraseña"  [errorStateMatcher]="_clienteForm.matcher" type="password" required
+                                 <input matInput formControlName="rContraseña"
+                                    [errorStateMatcher]="_clienteForm.matcher" type="password" required
                                     placeholder="*********">
-                                    <mat-error *ngIf="_clienteForm.infoCliente.hasError('notSame')">
-                                          Contraseña no coincide
-                                       </mat-error>
+                                 <mat-error *ngIf="_clienteForm.infoCliente.hasError('notSame')">
+                                    Contraseña no coincide
+                                 </mat-error>
                               </mat-form-field>
                            </div>
                            <div fxFlex>

@@ -113,6 +113,8 @@ export class AgendarCitaComponent implements OnInit {
     var total_duracion = 0;
     for (let i = 0; i < this.eventos.length; i++) {
       total_duracion += this.eventos[i].duracion_minutos;
+      console.log(total_duracion);
+      
     }
     return total_duracion
   }
