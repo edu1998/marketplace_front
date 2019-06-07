@@ -48,6 +48,8 @@ export class AgendarCitaComponent implements OnInit {
     list: 'lista'
   }
 
+  hiddenDay: Array<[number]>
+
   views: {
     dayGrid: {}, timeGrid: {}, week: {}, day: {}
   }
@@ -57,15 +59,14 @@ export class AgendarCitaComponent implements OnInit {
 
   validRange = {
     start: moment().add(1, 'day').format('YYYY-MM-DD'),
-    end: moment().add(6, 'day').format('YYYY-MM-DD')
+    end: moment().add(9, 'day').format('YYYY-MM-DD')
   }
 
   event: EventInput[];
 
   infoEmpresaGeneral() {
     this.empresaSer.getInfoGeneral(this.id_empresa).subscribe(data => {
-      console.log(data, 'servicios');
-
+      this.hiddenDay = this.configDayHidden(data.dias_atencion)
       this.minTimeEmpresa = data.h_apertura;
       this.maxTimeEmpresa = data.h_cierre;
     })
@@ -114,7 +115,7 @@ export class AgendarCitaComponent implements OnInit {
     for (let i = 0; i < this.eventos.length; i++) {
       total_duracion += this.eventos[i].duracion_minutos;
       console.log(total_duracion);
-      
+
     }
     return total_duracion
   }
@@ -141,7 +142,7 @@ export class AgendarCitaComponent implements OnInit {
         this.anadido = false;
         this.citasService.getCitasAgendadas(this.id_empresa).subscribe(data => {
           console.log(data);
-    
+
           this.event = this.event.concat(data);
         });
         this.snackbar.open('Cita reservada', 'Ok', {
@@ -168,6 +169,22 @@ export class AgendarCitaComponent implements OnInit {
     else return true;
 
 
+  }
+
+  configDayHidden(dias) {
+    let hiddenDay = [];
+    for (const key in dias) {
+      if (dias[key] !== true) {
+        if (key === 'domingo') hiddenDay.push(0)
+        if (key === 'lunes') hiddenDay.push(1)
+        if (key === 'martes') hiddenDay.push(2)
+        if (key === 'miercoles') hiddenDay.push(3)
+        if (key === 'jueves') hiddenDay.push(4)
+        if (key === 'viernes') hiddenDay.push(5)
+        if (key === 'sabado') hiddenDay.push(6)
+      }
+    }
+    return hiddenDay;
   }
 
   ngOnInit() {

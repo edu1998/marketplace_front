@@ -1,7 +1,8 @@
 <full-calendar defaultView="dayGridMonth" #fullcalendar [plugins]="calendarPlugins" [contentHeight]="400"
   [header]="header" [defaultView]="'timeGridWeek'" [buttonText]="buttonText" [allDaySlot]="false"
   [minTime]="minTimeEmpresa" [maxTime]="maxTimeEmpresa" [validRange]="validRange" [selectOverlap]=false
-  (dateClick)="handleDateClick($event,fullcalendar)" [events]="event" [eventColor]="'#378006'" [displayEventEnd]="true">
+  (dateClick)="handleDateClick($event,fullcalendar)" [events]="event" [eventColor]="'#378006'" [displayEventEnd]="true"
+  [hiddenDays]="hiddenDay" [locale]="'es'"> 
 </full-calendar>
 <br>
 <div fxLayout="row" fxLayoutAlign="center center" *ngIf="anadido">
